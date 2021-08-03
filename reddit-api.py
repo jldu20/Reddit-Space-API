@@ -53,7 +53,7 @@ def get_posts_helper(reddit):
     post_url = str(submission.url)
     one_post = False
     return submission
-#Since the subreddit obviously has a limited number of posts, there is a chance where you get repeats
+
 
 def main():
     reddit = login_to_reddit()
