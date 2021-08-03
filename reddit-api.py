@@ -7,11 +7,11 @@ from PIL import ImageTk, Image
 import webbrowser
 def login_to_reddit():
     reddit = praw.Reddit(
-        client_id="hSl3BuMGQXUu4Qp3sKOJ_g", #Input your client ID
-        client_secret="DhUA9wHJTNEIOF9jnWTlrBZJc6DcIQ", #Input the secret
-        password="fire22", #Input user password
+        client_id="CLIENTID", #Input your client ID
+        client_secret="SECRET", #Input the secret
+        password="PASSWORD", #Input user password
         user_agent="Programming for getting space images from /r/spaceporn", 
-        username="beer_pls", #Input username
+        username="USERNAME", #Input username
     )
     print("Successfully logged into Reddit")
     return reddit
