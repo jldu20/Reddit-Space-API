@@ -28,8 +28,8 @@ def user_gui(reddit_image):
     canvas.create_image(1000, 500, anchor=CENTER, image=img) 
     root.mainloop() 
 
-def get_posts(reddit):
-    submission = get_posts_helper(reddit)
+def get_posts(reddit, reddit_post):
+    submission = reddit_post
     post_url = str(submission.url)
     while not post_url.endswith("jpg") and post_url.endswith("jpg") and post_url.endswith("png"):
         submission = get_posts_helper(reddit)
@@ -50,7 +50,8 @@ def get_posts_helper(reddit):
 
 def main():
     reddit = login_to_reddit()
-    reddit_image = get_posts(reddit)
+    submission = get_posts_helper(reddit)
+    reddit_image = get_posts(reddit, submission)
     user_gui(reddit_image)
 
 if __name__ == "__main__":
