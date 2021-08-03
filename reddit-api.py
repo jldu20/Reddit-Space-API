@@ -54,7 +54,6 @@ def get_posts_helper(reddit):
     one_post = False
     return submission
 
-
 def main():
     reddit = login_to_reddit()
     submission = get_posts_helper(reddit)
