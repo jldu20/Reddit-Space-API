@@ -4,6 +4,7 @@ import urllib.request
 from tkinter import *
 from tkinter.ttk import *
 from PIL import ImageTk, Image
+import webbrowser
 def login_to_reddit():
     reddit = praw.Reddit(
         client_id="hSl3BuMGQXUu4Qp3sKOJ_g", #Input your client ID
@@ -15,18 +16,22 @@ def login_to_reddit():
     print("Successfully logged into Reddit")
     return reddit
 
-def user_gui(reddit_image):
+def user_gui(reddit_image, post_url, post_title):
     root = Tk()
     root.title("Space image")
-    space_label = Label(root, text = "Space!")
     height = int(root.winfo_screenheight())
     width = int(root.winfo_screenwidth())
-    canvas = Canvas(root, width = width, height = height)  
+    space_label = Label(root, text = post_url +"\t" + post_title)
+    space_label.pack()
+    space_label.bind("<Button-1>", lambda e: callback_url(post_url))
+    canvas = Canvas(root, width = width, height = height, background = 'gray1')  
     canvas.pack()  
-    reddit_image.resize((width//2,height//2))
+    reddit_image.resize((1000,500), Image.ANTIALIAS)
     img = ImageTk.PhotoImage(reddit_image)  
     canvas.create_image(1000, 500, anchor=CENTER, image=img) 
     root.mainloop() 
+def callback_url(url):
+    webbrowser.open_new_tab(url)
 
 def get_posts(reddit, reddit_post):
     submission = reddit_post
@@ -40,7 +45,9 @@ def get_posts(reddit, reddit_post):
 
 def get_post_url(submission):
     return str(submission.url)
-    
+
+def get_post_title(submission):
+    return str(submission.title)
 def get_posts_helper(reddit):
     submission = reddit.subreddit("spaceporn").random()
     post_url = str(submission.url)
@@ -51,8 +58,10 @@ def get_posts_helper(reddit):
 def main():
     reddit = login_to_reddit()
     submission = get_posts_helper(reddit)
+    post_url = str(submission.url)
+    post_title = get_post_title(submission)
     reddit_image = get_posts(reddit, submission)
-    user_gui(reddit_image)
+    user_gui(reddit_image, post_url, post_title)
 
 if __name__ == "__main__":
     main()
